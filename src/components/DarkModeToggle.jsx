@@ -3,12 +3,11 @@ import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 
 export default function DarkModeToggle() {
   const [dark, setDark] = useState(() => {
-    return (
-      localStorage.getItem("theme") === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    );
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme === "dark";
   });
+
+  const [mounted, setMounted] = useState(false); // prevent hydration mismatch
 
   useEffect(() => {
     const root = document.documentElement;
@@ -19,7 +18,10 @@ export default function DarkModeToggle() {
       root.classList.remove("dark");
       localStorage.setItem("theme", "light");
     }
+    setMounted(true); // now it's safe to render icons
   }, [dark]);
+
+  if (!mounted) return null;
 
   return (
     <button
