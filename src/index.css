@@ -35,6 +35,26 @@ html {
     "Pixelify Sans", sans-serif;
 }
 
+html:not(.dark) .bg-skygrid {
+  background-color: #f0faff;
+  background-image: repeating-linear-gradient(
+      -45deg,
+      rgba(255, 215, 0, 0.08) 0,
+      rgba(255, 215, 0, 0.08) 2px,
+      transparent 2px,
+      transparent 10px
+    ),
+    radial-gradient(
+      circle at top center,
+      rgba(255, 255, 255, 0.4),
+      transparent 70%
+    );
+  background-size: 200% 200%, 100% 100%;
+  animation: skygridScroll 40s linear infinite;
+  position: relative;
+  z-index: 0;
+}
+
 .dark .bg-starfield {
   background-color: #0b1120;
   background-image: radial-gradient(
@@ -47,12 +67,28 @@ html {
   animation: starfield 100s linear infinite;
 }
 
-@keyframes floatBokeh {
+.animate-spin-slow {
+  animation: spin-slow 1.5s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
   0% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
   }
   100% {
-    transform: translate(50px, 50px) rotate(360deg);
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes skygridScroll {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: -1000px 1000px, 0 0;
   }
 }
 
