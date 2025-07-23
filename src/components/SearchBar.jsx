@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { FiSearch } from "react-icons/fi";
 
 const SearchBar = ({ fetchWeather }) => {
   const [query, setQuery] = useState("");
@@ -17,8 +18,7 @@ const SearchBar = ({ fetchWeather }) => {
       } else {
         setSuggestions([]);
       }
-    }, 300); // debounce
-
+    }, 300);
     return () => clearTimeout(handler);
   }, [query]);
 
@@ -28,7 +28,6 @@ const SearchBar = ({ fetchWeather }) => {
         `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=10&appid=${API_KEY}`
       );
 
-      // Remove duplicates: city + state + country
       const unique = res.data.filter(
         (item, index, self) =>
           index ===
@@ -75,24 +74,41 @@ const SearchBar = ({ fetchWeather }) => {
     }
   };
 
+  const handleSearchClick = () => {
+    if (query.trim()) {
+      setSuggestions([]);
+      fetchWeather(query.trim());
+    }
+  };
+
   return (
     <div className="relative mb-4">
-      <input
-        ref={inputRef}
-        type="text"
-        placeholder="Enter city name"
-        className="w-full p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-900 dark:text-white"
-        value={query}
-        onChange={(e) => {
-          setQuery(e.target.value);
-          setActiveIndex(-1);
-        }}
-        onKeyDown={handleKeyDown}
-        onFocus={() =>
-          query && suggestions.length > 0 && setShowSuggestions(true)
-        }
-        onBlur={() => setTimeout(() => setShowSuggestions(false), 100)}
-      />
+      <div className="relative">
+        <input
+          ref={inputRef}
+          type="text"
+          placeholder="Search city"
+          className="w-full p-3 pl-10 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-900 dark:text-white"
+          value={query}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setActiveIndex(-1);
+          }}
+          onKeyDown={handleKeyDown}
+          onFocus={() =>
+            query && suggestions.length > 0 && setShowSuggestions(true)
+          }
+          onBlur={() => setTimeout(() => setShowSuggestions(false), 100)}
+        />
+
+        {/* Clickable Search Icon */}
+        <button
+          onClick={handleSearchClick}
+          className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-300 hover:text-blue-600"
+        >
+          <FiSearch size={20} />
+        </button>
+      </div>
 
       {showSuggestions && suggestions.length > 0 && (
         <ul className="absolute z-50 w-full bg-white dark:bg-slate-800 shadow-md mt-1 max-h-60 overflow-y-auto rounded border border-gray-200 dark:border-gray-700">
