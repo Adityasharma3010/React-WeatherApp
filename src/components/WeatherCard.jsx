@@ -4,7 +4,7 @@ import convertTemperature from "./TempConvert";
 const WeatherCard = ({ weather, unit, setUnit }) => {
   return (
     <div className="flex flex-col items-center mt-4">
-      <h2 className="text-xl font-medium">
+      <h2 className="text-xl font-medium text-center">
         {weather.city.name}, {weather.city.country}
       </h2>
       <div className="flex flex-col items-center mb-3">
