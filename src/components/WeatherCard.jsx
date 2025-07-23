@@ -15,7 +15,7 @@ const WeatherCard = ({ weather, unit, setUnit }) => {
             className="w-20 h-20"
           />
           <p className="text-center min-[400px]:text-left text-3xl font-['Pixelify_Sans']">
-            {convertTemperature(weather.current.main.temp, unit)}&deg; {unit}
+            {convertTemperature(weather.current.main.temp, unit)}
           </p>
         </div>
         <p className="capitalize font-medium text-lg -mt-2 text-gray-300 text-center">
@@ -28,12 +28,10 @@ const WeatherCard = ({ weather, unit, setUnit }) => {
             <p className="text-lg text-center min-[400px]:text-left">
               <strong className="font-['Pixelify_Sans']">Max: </strong>
               {convertTemperature(weather.maxTempToday, unit, unit)}
-              &deg; {unit}
             </p>
             <p className="text-lg text-center min-[400px]:text-left">
               <strong className="font-['Pixelify_Sans']">Min: </strong>
               {convertTemperature(weather.minTempToday, unit)}
-              &deg; {unit}
             </p>
           </div>
           <div className="flex order-1 min-[400px]:order-2">
@@ -61,7 +59,6 @@ const WeatherCard = ({ weather, unit, setUnit }) => {
           <p className="flex flex-col items-center text-center">
             <strong>Feels Like: </strong>
             {convertTemperature(weather.current.main.feels_like, unit)}
-            &deg; {unit}
           </p>
         </div>
       </div>

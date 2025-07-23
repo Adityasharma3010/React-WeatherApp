@@ -51,7 +51,7 @@ const ForecastSummary = ({ days, unit, setUnit }) => {
                   className="w-20 h-20"
                 />
                 <p className="text-3xl font-semibold">
-                  {convertTemperature(day.max, unit)}&deg;
+                  {convertTemperature(day.max, unit)}
                 </p>
               </div>
               <p className="capitalize font-medium text-lg text-gray-700 dark:text-gray-300 mt-2">
