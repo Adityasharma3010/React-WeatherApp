@@ -13,7 +13,7 @@ function App() {
   const [error, setError] = useState("");
   const [unit, setUnit] = useState("C");
   const [lastIcon, setLastIcon] = useState("01d");
-  const [showForecast, setShowForecast] = useState(false); // <-- toggle state
+  const [showForecast, setShowForecast] = useState(false);
 
   const API_KEY = import.meta.env.VITE_API_KEY;
   const API_URL = "https://api.openweathermap.org/data/2.5/forecast";
@@ -37,7 +37,6 @@ function App() {
       forecastData.maxTempToday = Math.max(...temps);
       forecastData.current = forecastData.list[0];
 
-      // Extract next 3 days (skipping today)
       const nextDays = [];
       const seenDates = new Set();
       for (let i = 0; i < forecastData.list.length; i++) {
@@ -65,7 +64,7 @@ function App() {
 
       setTimeout(() => {
         setWeather(forecastData);
-      }, 2000);
+      }, 500); // Reduced delay
     } catch (err) {
       if (err.response?.status === 404) {
         setError("City Not Found! Please try again.");
@@ -76,7 +75,7 @@ function App() {
     } finally {
       setTimeout(() => {
         setLoading(false);
-      }, 2000);
+      }, 500); // Reduced delay
     }
   };
 
@@ -103,7 +102,7 @@ function App() {
               initial={{ x: 300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -300, opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.3 }} // Faster slide
             >
               {showForecast ? (
                 <>
